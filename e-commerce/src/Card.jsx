@@ -1,6 +1,6 @@
 import React from 'react'
-function Card({obj}) {
-    const {thumbnail, title, price, rating, brand, category} = obj;
+function Card({ items }) {
+    const { thumbnail, title, price, rating, brand, category } = items;
     return (
         <div className="card card-compact bg-white w-96 shadow-xl m-5">
             <figure>
