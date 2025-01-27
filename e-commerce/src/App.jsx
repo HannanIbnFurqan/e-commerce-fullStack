@@ -5,7 +5,7 @@ import Home from './Home';
 
 function App() {
   let [productData, setProductData] = useState([]);
-
+// api call
   let getProducts = async () => {
     try {
       let response = await fetch("https://dummyjson.com/products");

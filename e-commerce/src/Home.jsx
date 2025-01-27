@@ -19,8 +19,8 @@ let Home = ({ productData }) => {
         <button className="btn btn-outline btn-primary">groceries</button>
       </div>
       <div className="flex flex-wrap justify-around">
-        {productData.map((item, index) => (
-          <Card key={index} items={item} />
+        {productData.map((items, index) => (
+          <Card key={index} items={items} />
         ))}
       </div>
     </div>
