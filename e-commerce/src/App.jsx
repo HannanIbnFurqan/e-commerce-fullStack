@@ -5,11 +5,12 @@ import Home from './Home';
 
 function App() {
   let [productData, setProductData] = useState([]);
-// api call
+  // API call
   let getProducts = async () => {
     try {
       let response = await fetch("https://dummyjson.com/products");
       let data = await response.json();
+      // get product data
       setProductData(data.products);
     } catch (error) {
       console.error("Failed to fetch products:", error);
