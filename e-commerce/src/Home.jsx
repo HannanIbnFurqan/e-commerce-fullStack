@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import products from './data.js';
 import Card from './Card.jsx';
 let Home = () => {
+  // search functionality
+  const [query, setQuery] = useState();
+  // for filter
   const [allData, setAllData] = useState([...products])
   const [Data, setData] = useState([...products])
 
@@ -18,6 +21,14 @@ let Home = () => {
 
       setData(filterCategory);
   }
+
+  function handleSearch(){
+    const search = allData.filter((obj)=>{
+      return obj.title.toLowerCase().includes(query.trim().toLowerCase())
+    })
+    setData(search);
+    setQuery("");
+  }
   return (
     <div className="w-screen h-[87vh]">
       <div className="flex justify-around mt-1.5">
@@ -29,8 +40,10 @@ let Home = () => {
             type="text"
             placeholder="Type here"
             className="input input-bordered input-primary w-full max-w-xs"
+            value={query}
+            onChange={(event)=> setQuery(event.target.value)}
           />
-          <button className="btn btn-primary">Searchy</button>
+          <button className="btn btn-primary" onClick={handleSearch}>Searchy</button>
         </div>
         <button className="btn btn-outline btn-primary" onClick={()=>handleCategory('fragrances')}>fragrances</button>
         <button className="btn btn-outline btn-primary" onClick={()=>handleCategory('groceries')}>groceries</button>
