@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import products from './data.js';
 import Card from './Card.jsx';
 let Home = () => {
+  const [allData, setAllData] = useState([...products])
   const [Data, setData] = useState([...products])
+
   function handleTopRated(){
-    const filterData = Data.filter((obj)=>{
+    const filterData = allData.filter((obj)=>{
       return obj.rating >= 4
     })
     setData(filterData);
   }
   function handleCategory(category){
-      const filterCategory = Data.filter((obj)=>{
+      const filterCategory = allData.filter((obj)=>{
         return obj.category == category
       })
 
