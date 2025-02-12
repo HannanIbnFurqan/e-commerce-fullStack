@@ -1,12 +1,27 @@
-import React from 'react';
-// import products from './data.js';
+import React, { useState } from 'react';
+import products from './data.js';
 import Card from './Card.jsx';
-let Home = ({ productData }) => {
+let Home = () => {
+  const [Data, setData] = useState([...products])
+  function handleTopRated(){
+    const filterData = Data.filter((obj)=>{
+      return obj.rating >= 4
+    })
+    setData(filterData);
+  }
+  function handleCategory(category){
+      const filterCategory = Data.filter((obj)=>{
+        return obj.category == category
+      })
+
+      setData(filterCategory);
+  }
   return (
     <div className="w-screen h-[87vh]">
       <div className="flex justify-around mt-1.5">
-        <button className="btn btn-outline btn-primary">beauty</button>
-        <button className="btn btn-outline btn-primary">furniture</button>
+      <button className="btn btn-outline btn-primary" onClick={handleTopRated}>Top Rated</button>
+        <button className="btn btn-outline btn-primary" onClick={()=>handleCategory('beauty')}>beauty</button>
+        <button className="btn btn-outline btn-primary" onClick={()=>handleCategory('furniture')}>furniture</button>
         <div className="flex gap-2">
           <input
             type="text"
@@ -15,11 +30,11 @@ let Home = ({ productData }) => {
           />
           <button className="btn btn-primary">Searchy</button>
         </div>
-        <button className="btn btn-outline btn-primary">fragrances</button>
-        <button className="btn btn-outline btn-primary">groceries</button>
+        <button className="btn btn-outline btn-primary" onClick={()=>handleCategory('fragrances')}>fragrances</button>
+        <button className="btn btn-outline btn-primary" onClick={()=>handleCategory('groceries')}>groceries</button>
       </div>
       <div className="flex flex-wrap justify-around">
-        {productData.map((items, index) => (
+        {Data.map((items, index) => (
           <Card key={index} items={items} />
         ))}
       </div>
