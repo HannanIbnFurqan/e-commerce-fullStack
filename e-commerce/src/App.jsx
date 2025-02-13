@@ -24,8 +24,8 @@ function App() {
   return (
     <>
       <Navbar />
-      {/* <Home productData={productData} /> */}
-      <Home/>
+       <Home/>
+      {/* <ShimmerUI></ShimmerUI> */}
     </>
   );
 }
