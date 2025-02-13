@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import products from './data.js';
-import Card from './Card.jsx';
+import Card from './ProductCard.jsx';
 let Home = () => {
   const [productData, setProductData] = useState([]);
   // search functionality
