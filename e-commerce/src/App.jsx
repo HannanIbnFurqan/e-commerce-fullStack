@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 // import './App.css';
 import Navbar from './Navbar';
-import Home from './Home';
+import { Outlet } from 'react-router-dom';
 
 function App() {
-  
+
   return (
     <>
       <Navbar />
-       <Home/>
+       <Outlet/>
       {/* <ShimmerUI></ShimmerUI> */}
     </>
   );

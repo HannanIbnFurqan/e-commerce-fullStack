@@ -1,13 +1,15 @@
+import { Link } from "react-router-dom";
+
 let Navbar = () => {
     return (
         <div className="navbar bg-slate-100">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl text-black">Mood Mart</a>
+                <Link to={"/"} className="btn btn-ghost text-xl text-black">Mood Mart</Link>
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a className="text-black">Cart</a></li>
-                    <li><a className="text-black">Profile</a></li>
+                    <li><Link to={"/Cart"} className="text-black">Cart</Link></li>
+                    <li><Link to={"/profile"} className="text-black">Profile</Link></li>
                     <li>
                         <label className="flex cursor-pointer gap-2">
                             <svg

@@ -1,8 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 function Card({ items }) {
-    const { thumbnail, title, price, rating, brand, category } = items;
+    const { thumbnail, title, price, rating, brand, category, id } = items;
+    const navigate = useNavigate();
+
+    const handleNavigation = () => {
+      navigate(`/product/${id}`);
+    };
     return (
-        <div className="card card-compact bg-white w-96 shadow-xl m-5">
+        <div className="card card-compact bg-white w-96 shadow-xl m-5" onClick={handleNavigation}>
             <figure>
                 <img className='h-48'
                     src={`${thumbnail}`}

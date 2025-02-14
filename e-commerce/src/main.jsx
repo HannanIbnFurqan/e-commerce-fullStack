@@ -1,23 +1,43 @@
-import { StrictMode } from 'react'
+import { Children, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+// css
 import './index.css'
+
+// components
 import App from './App.jsx'
 import Cart from './Cart.jsx'
 import Profile from './Profile.jsx'
+import Home from './Home.jsx'
+import ErrorPage from './ErrorPage.jsx'
+import SingleProductPage from './SingleProductPage.jsx'
 
+
+
+// react routing
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>
-  },
-  {
-    path: "/Cart",
-    element: <Cart></Cart>
-  },
-  {
-    path: "/Profile",
-    element: <Profile></Profile>
+    element: <App></App>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>
+      },
+      {
+        path: "/Cart",
+        element: <Cart></Cart>
+      },
+      {
+        path: "/Profile",
+        element: <Profile></Profile>
+      },
+      {
+        path: "/product/:id",
+        element: <SingleProductPage></SingleProductPage>
+      }
+    ],
+    errorElement: <ErrorPage></ErrorPage>
   }
 ])
 createRoot(document.getElementById('root')).render(
