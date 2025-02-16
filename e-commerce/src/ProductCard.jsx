@@ -12,7 +12,7 @@ function Card({ items }) {
         e.stopPropagation();
     }
     return (
-        <div className="card card-compact bg-white w-96 shadow-xl m-5" onClick={handleNavigation}>
+        <div className="card card-compact bg-black-100 w-96 shadow-xl m-5 hover:outline outline-offset-2" onClick={handleNavigation}>
             <figure>
                 <img className='h-48'
                     src={`${thumbnail}`}
@@ -20,7 +20,7 @@ function Card({ items }) {
             </figure>
             <div className="card-body">
 
-                <p className="text-black">{title}</p>
+                <p className="text-gray">{title}</p>
                 <div className='flex gap-2'>
                    <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">{brand}</span>
                     <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">{category}</span>
