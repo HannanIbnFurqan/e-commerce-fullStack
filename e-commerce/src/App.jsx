@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-// import './App.css';
 import Navbar from './Navbar';
 import { Outlet } from 'react-router-dom';
-import themeController from './utility/themeController';
-function App() {
+import ThemeController from './utility/themeController'; // Fix: Capitalized import
 
+function App() {
   return (
-    <themeController>
+    <ThemeController> {/* Fix: Capitalized component */}
       <Navbar />
-       <Outlet/>
-    </themeController>
+      <Outlet />
+    </ThemeController>
   );
 }
 

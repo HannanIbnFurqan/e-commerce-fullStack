@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
-import { createContext } from 'react'
-export const themeStore = createContext(null);
-function themeController({children}) {
-    const [theme, setTheme] = useState("light")
-  return (
-    <themeStore.Provider value={{theme, setTheme}}>themeController</themeStore.Provider>
-  )
+import React, { useState, createContext } from 'react';
+
+export const ThemeStore = createContext(null);
+
+function ThemeController({ children }) {
+    const [theme, setTheme] = useState("dark");
+
+    return (
+        <ThemeStore.Provider value={{ theme, setTheme }}>
+            {children}
+        </ThemeStore.Provider>
+    );
 }
 
-export default themeController
+export default ThemeController;

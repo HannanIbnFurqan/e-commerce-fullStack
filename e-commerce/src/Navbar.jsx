@@ -1,17 +1,20 @@
 import { Link } from "react-router-dom";
-import { createContext } from "react";
-import { themeStore } from "./utility/themeController";
+import { useContext } from "react";
+import { ThemeStore } from "./utility/themeController";
+
 let Navbar = () => {
-    const {theme, setTheme} = createContext(themeStore)
+    const { theme, setTheme } = useContext(ThemeStore);
+    const darkTheme = "navbar bg-base-300 text-white";
+    const lightTheme = "navbar bg-gray-200 text-black";
     return (
-        <div className="navbar bg-slate-100">
+        <div className={theme == "light" ? lightTheme : darkTheme}>
             <div className="flex-1">
-                <Link to={"/"} className="btn btn-ghost text-xl text-black">Mood Mart</Link>
+                <Link to={"/"} className="btn btn-ghost text-xl">Mood Mart</Link>
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    <li><Link to={"/Cart"} className="text-black">Cart</Link></li>
-                    <li><Link to={"/profile"} className="text-black">Profile</Link></li>
+                    <li><Link to={"/Cart"}>Cart</Link></li>
+                    <li><Link to={"/profile"}>Profile</Link></li>
                     <li>
                         <label className="flex cursor-pointer gap-2">
                             <svg
@@ -28,7 +31,8 @@ let Navbar = () => {
                                 <path
                                     d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
                             </svg>
-                            <input type="checkbox" value="synthwave" className="toggle theme-controller" />
+                            <input type="checkbox" value="synthwave" className="toggle theme-controller" 
+                            onClick={()=> setTheme(theme == "light" ? "dark" : "light")}/>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
