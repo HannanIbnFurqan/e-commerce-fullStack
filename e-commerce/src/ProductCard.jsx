@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-function Card({ items }) {
+function Card({ items, theme }) {
     const { thumbnail, title, price, rating, brand, category, id } = items;
     const navigate = useNavigate();
 
@@ -11,8 +11,11 @@ function Card({ items }) {
     const StopEvent = (e) =>{
         e.stopPropagation();
     }
+
+    // Define background color based on theme
+  const cardTheme = theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white";
     return (
-        <div className="card card-compact bg-black-100 w-96 shadow-xl m-5 hover:outline outline-offset-2" onClick={handleNavigation}>
+        <div className={`card card-compact  w-96 shadow-xl m-5 hover:outline outline-offset-2 ${cardTheme}`} onClick={handleNavigation}>
             <figure>
                 <img className='h-48'
                     src={`${thumbnail}`}
