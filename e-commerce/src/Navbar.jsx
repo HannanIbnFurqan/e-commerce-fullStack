@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-
+import { createContext } from "react";
+import { themeStore } from "./utility/themeController";
 let Navbar = () => {
+    const {theme, setTheme} = createContext(themeStore)
     return (
         <div className="navbar bg-slate-100">
             <div className="flex-1">

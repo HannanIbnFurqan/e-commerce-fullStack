@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 // import './App.css';
 import Navbar from './Navbar';
 import { Outlet } from 'react-router-dom';
-
+import themeController from './utility/themeController';
 function App() {
 
   return (
-    <>
+    <themeController>
       <Navbar />
        <Outlet/>
-      {/* <ShimmerUI></ShimmerUI> */}
-    </>
+    </themeController>
   );
 }
 
