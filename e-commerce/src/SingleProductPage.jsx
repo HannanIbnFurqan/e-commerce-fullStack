@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Review from './Review'
 import ShimmerUI from "./ShimmerUI"
 function SingleProductPage() {
     const [obj, setObj] = useState(null)
@@ -19,7 +20,7 @@ function SingleProductPage() {
         return <div className='flex justify-center w-1/2 h-[50%]'><ShimmerUI></ShimmerUI></div>
     }
 
-    const { thumbnail, title, description, category, price, rating, stock, brand } = obj
+    const { thumbnail, title, description, category, price, rating, stock, brand, reviews } = obj
 
     return (
         <div className='bg-base-200 w-1/2 m-auto mt-5'>
@@ -62,6 +63,15 @@ function SingleProductPage() {
                     </div>
                 </div>
             </div>
+            {
+                reviews.map((obj)=>{
+                    return(
+                        <div>
+                            <Review obj={obj}></Review>
+                        </div>
+                    )
+                })
+            }
         </div>
     )
 }
