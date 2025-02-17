@@ -10,11 +10,13 @@ import Profile from './Profile.jsx'
 import Home from './Home.jsx'
 import ErrorPage from './ErrorPage.jsx'
 import SingleProductPage from './SingleProductPage.jsx'
+import { appStore } from './utility/store/appStore.js'
+import { Provider } from "react-redux"
 
 
 
 // react routing
-import {RouterProvider, createBrowserRouter} from "react-router-dom"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +44,8 @@ const appRouter = createBrowserRouter([
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={appRouter}></RouterProvider>
+    <Provider store={appStore}>
+      <RouterProvider router={appRouter}></RouterProvider>
+    </Provider>
   </StrictMode>,
 )
