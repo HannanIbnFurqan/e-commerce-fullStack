@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeStore } from "./utility/themeController";
+import {useSelector} from 'react-redux'
 
 let Navbar = () => {
     const { theme, setTheme } = useContext(ThemeStore);
+    const cartItems = useSelector((store)=> store.cart.items)
+    console.log(cartItems)
     const darkTheme = "navbar bg-base-300 text-white";
     const lightTheme = "navbar bg-gray-200 text-black";
     return (
@@ -13,7 +16,7 @@ let Navbar = () => {
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    <li><Link to={"/Cart"}>Cart</Link></li>
+                    <li><Link to={"/Cart"}>Cart <sup>{cartItems.length}</sup> </Link></li>
                     <li><Link to={"/profile"}>Profile</Link></li>
                     <li>
                         <label className="flex cursor-pointer gap-2">
@@ -36,7 +39,7 @@ let Navbar = () => {
                             onClick={() => {
                                 const newTheme = theme === "light" ? "dark" : "light"; // Toggle theme
                                 setTheme(newTheme);
-                                localStorage.setItem("Theme", newTheme); // Save correct theme
+                                localStorage.setItem("Theme", newTheme); 
                               }} />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
