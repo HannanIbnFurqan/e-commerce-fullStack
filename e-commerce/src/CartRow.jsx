@@ -1,35 +1,35 @@
-import React from 'react'
+import React from 'react';
+import { removeCart } from './utility/store/CartSlice';
+import { useDispatch } from 'react-redux';
+function CartRow({ obj, quantity }) {
+  const { thumbnail, title, price, rating, brand, id } = obj;
 
-function CartRow({obj}) {
-    // const {} = obj;
+  const dispatch = useDispatch();
   return (
     <tr>
-    <td>
-      <div className="flex items-center gap-3">
-        <div className="avatar">
-          <div className="mask mask-squircle h-12 w-12">
-            <img
-              src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-              alt="Avatar Tailwind CSS Component" />
+      <td>
+        <div className="flex items-center gap-3">
+          <div className="avatar">
+            <div className="mask mask-squircle h-12 w-12">
+              <img src={thumbnail} alt={title} />
+            </div>
+          </div>
+          <div>
+            <div className="font-bold">{title}</div>
+            <div className="text-sm opacity-50">{brand}</div>
           </div>
         </div>
-        <div>
-          <div className="font-bold">Hart Hagerty</div>
-          <div className="text-sm opacity-50">United States</div>
-        </div>
-      </div>
-    </td>
-    <td>
-      Zemlak, Daniel and Leannon
-      <br />
-      <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-    </td>
-    <td>Purple</td>
-    <th>
-      <button className="btn btn-ghost btn-xs">details</button>
-    </th>
-  </tr>
-  )
+      </td>
+      <td>{rating}</td>
+      <td>${price}</td>
+      <td>
+        {quantity}
+      </td>
+      <td>
+        <button onClick={()=> dispatch(removeCart(id))}>remove</button>
+      </td>
+    </tr>
+  );
 }
 
-export default CartRow
+export default CartRow;

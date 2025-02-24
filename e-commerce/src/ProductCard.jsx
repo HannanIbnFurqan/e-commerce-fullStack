@@ -12,7 +12,7 @@ function Card({ items, theme }) {
     };
 
     const StopEvent = (e) =>{
-        dispatch(addCart())
+        dispatch(addCart(items))
         e.stopPropagation();
     }
 

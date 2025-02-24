@@ -1,27 +1,32 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { useSelector } from 'react-redux';
+
 import CartRow from './CartRow';
+
 function Cart() {
-  const CartItems = useSelector((store)=> store.cart.items)
-  console.log("cartIems = ",CartItems);
+  const CartItems = useSelector((store) => store.cart.items);
+  console.log("Cart Items = ", CartItems);
+
   return (
     <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Rating</th>
-        <th>Quantity</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    <CartRow></CartRow>
-    </tbody>
-  </table>
-</div>
-  )
+      <table className="table">
+        {/* Table Head */}
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {CartItems.map((cartObj) => (
+            <CartRow key={cartObj.objData.id} obj={cartObj.objData} quantity={cartObj.quantity} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
-export default Cart
+export default Cart;
