@@ -56,7 +56,16 @@ const CartSlice = createSlice({
             }else{
                 obj.quantity = obj.quantity - 1;
             }
-        }
+        },
+
+        sortAcsending: (state, action)=>{
+              state.items.sort((a,b)=> a.objData.price - b.objData.price);
+        },
+
+        sortDesending: (state, action)=>{
+            state.items.sort((a,b)=> a.objData.price - b.objData.price);
+      }
+
     }
 });
 
