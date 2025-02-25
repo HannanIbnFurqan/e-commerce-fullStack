@@ -32,7 +32,7 @@ const CartSlice = createSlice({
         clearCart: (state) => {
             state.items = [];
         },
-        incrementQuantity: ()=>{
+        incrementQuantity: ( state , action)=>{
             let objId = action.payload;
             let obj = state.items.find(
                 (cartObj)=> cartObj.objData.id === objId
@@ -40,7 +40,7 @@ const CartSlice = createSlice({
             obj.quantity = obj.quantity + 1;
         },
 
-        DecrementQuantity: ()=>{
+        DecrementQuantity: (state, action)=>{
             let objId = action.payload;
             let obj = state.items.find(
                 (cartObj)=> cartObj.objData.id === objId
@@ -63,11 +63,11 @@ const CartSlice = createSlice({
         },
 
         sortDesending: (state, action)=>{
-            state.items.sort((a,b)=> a.objData.price - b.objData.price);
+            state.items.sort((a,b)=> a.objData.price + b.objData.price);
       }
 
     }
 });
 
-export let { addCart, removeCart, clearCart } = CartSlice.actions;
+export let { addCart, removeCart, clearCart, incrementQuantity, DecrementQuantity, sortAcsending, sortDesending } = CartSlice.actions;
 export default CartSlice.reducer;

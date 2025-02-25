@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { clearCart } from './utility/store/CartSlice';
+import { clearCart, sortAcsending, sortDesending } from './utility/store/CartSlice';
 import CartRow from './CartRow';
 
 function Cart() {
   const CartItems = useSelector((store) => store.cart.items);
-  console.log("Cart Items = ", CartItems);
+  // console.log("Cart Items = ", CartItems);
   const dispatch = useDispatch()
 
   return (
@@ -17,7 +17,7 @@ function Cart() {
           <tr>
             <th>Name</th>
             <th>Rating</th>
-            <th>Price</th>
+            <th><span onClick={()=> dispatch(sortAcsending())}>🔼</span>Price <span onClick={()=> dispatch(sortDesending())}>🔽</span></th>
             <th>Action</th>
           </tr>
         </thead>
