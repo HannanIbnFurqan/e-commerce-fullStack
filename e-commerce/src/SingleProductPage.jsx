@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCart } from './utility/store/CartSlice'
 import { useParams } from 'react-router-dom'
 import Review from './Review'
 import ShimmerUI from "./ShimmerUI"
 function SingleProductPage() {
+    const CartItems = useSelector((store)=> store.cart.items)
+    const dispatch = useDispatch();
+
+
     const [obj, setObj] = useState(null)
     const { id } = useParams();
     const getData = async () => {
@@ -15,15 +21,23 @@ function SingleProductPage() {
     useEffect(() => {
         getData()
     }, [])
-
+console.log('id = ', id)
     if (obj == null) {
         return <div className='flex justify-center w-1/2 h-[50%]'><ShimmerUI></ShimmerUI></div>
     }
 
     const { thumbnail, title, description, category, price, rating, stock, brand, reviews } = obj
 
+    const checkCart = () => {
+        const objIdx = CartItems.findIndex((cartObj) => cartObj.objData.id === Number(id));
+        console.log('objIdx = ', objIdx); // Debugging
+        return objIdx !== -1;
+    };
+    
+
     return (
         <div className='bg-base-200 w-1/2 m-auto mt-5'>
+            {checkCart() != -1 ? <div className='bg-yellow'>Added to cart</div> : null }
             <div className="card card-side bg-base-900 shadow-xl">
                 <figure>
                     <img
@@ -59,7 +73,7 @@ function SingleProductPage() {
                         </button>
                     </div>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Watch</button>
+                        <button className="btn btn-primary" onClick={()=> dispatch(addCart(obj))}>Buy Now</button>
                     </div>
                 </div>
             </div>
