@@ -37,7 +37,7 @@ console.log('id = ', id)
 
     return (
         <div className='bg-base-200 w-1/2 m-auto mt-5'>
-            {checkCart() != -1 ? <div className='bg-yellow'>Added to cart</div> : null }
+            {checkCart() != -1 ? <div className='bg-orange-500 h-[2rem] w-[7rem] p-1 text-black rounded-2xl font-bold'>Added to cart</div> : null }
             <div className="card card-side bg-base-900 shadow-xl">
                 <figure>
                     <img

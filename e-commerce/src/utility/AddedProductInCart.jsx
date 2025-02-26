@@ -2,7 +2,7 @@ function AddedProductInCart(Component) {
     return function WrappedComponent(props) {
       return (
         <>
-          <div className="bg-orange-500 h-[2rem] w-[7rem] p-1 text-black rounded-2xl font-bold">
+          <div className="bg-orange-500 h-[2rem] text-black rounded-2xl font-bold flex items-center justify-center">
             Added to cart
           </div>
           <Component {...props} />
@@ -10,6 +10,6 @@ function AddedProductInCart(Component) {
       );
     };
   }
-
-  export default AddedProductInCart
+  
+  export default AddedProductInCart;
   

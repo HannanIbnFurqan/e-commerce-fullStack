@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
-import Card from './ProductCard.jsx';
+import ProductCart from './ProductCard.jsx';
 import { ThemeStore } from './utility/themeController.jsx';
+import AddedProductInCart from './utility/AddedProductInCart.jsx';
+import { useSelector } from 'react-redux';
 
-let Home = () => {
-  const { theme } = useContext(ThemeStore);  // Getting theme state
+const Home = () => {
+  const { theme } = useContext(ThemeStore); // Getting theme state
+  const CartItems = useSelector((store) => store.cart.items);
   const [productData, setProductData] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [allData, setAllData] = useState([]);
 
   async function getData() {
@@ -14,6 +17,12 @@ let Home = () => {
     setAllData(obj.products);
     setProductData(obj.products);
   }
+
+  const AddedComponent = AddedProductInCart(ProductCart);
+
+  const checkCart = (id) => {
+    return CartItems.some((cartObj) => cartObj.id === Number(id)); // Simplified
+  };
 
   useEffect(() => {
     getData();
@@ -29,19 +38,25 @@ let Home = () => {
 
   function handleSearch() {
     setProductData(allData.filter((obj) => obj.title.toLowerCase().includes(query.trim().toLowerCase())));
-    setQuery("");
+    setQuery('');
   }
 
   // Theme classes
-  const darkTheme = "flex flex-wrap justify-around bg-gray-600 text-white";
-  const lightTheme ="flex flex-wrap justify-around bg-gray-100 text-black";
-  // className={theme === "light" ? lightTheme : darkTheme}
+  const darkTheme = 'flex flex-wrap justify-around bg-gray-600 text-white';
+  const lightTheme = 'flex flex-wrap justify-around bg-gray-100 text-black';
+
   return (
-    <div  className="w-screen h-[87vh]">  {/* Fixed */}
+    <div className="w-screen h-[87vh]">
       <div className="flex justify-around mt-1.5">
-        <button className="btn btn-outline btn-primary" onClick={handleTopRated}>Top Rated</button>
-        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('beauty')}>beauty</button>
-        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('furniture')}>furniture</button>
+        <button className="btn btn-outline btn-primary" onClick={handleTopRated}>
+          Top Rated
+        </button>
+        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('beauty')}>
+          Beauty
+        </button>
+        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('furniture')}>
+          Furniture
+        </button>
         <div className="flex gap-2">
           <input
             type="text"
@@ -50,15 +65,25 @@ let Home = () => {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
-          <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+          <button className="btn btn-primary" onClick={handleSearch}>
+            Search
+          </button>
         </div>
-        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('fragrances')}>fragrances</button>
-        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('groceries')}>groceries</button>
+        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('fragrances')}>
+          Fragrances
+        </button>
+        <button className="btn btn-outline btn-primary" onClick={() => handleCategory('groceries')}>
+          Groceries
+        </button>
       </div>
-      <div className={theme === "light" ? lightTheme : darkTheme}>
-        {productData.map((items, index) => (
-          <Card key={index} items={items} theme={theme}/>
-        ))}
+      <div className={theme === 'light' ? lightTheme : darkTheme}>
+        {productData.map((items, index) => {
+          return checkCart(items.id) ? (
+            <AddedComponent items={items} key={index} theme={theme} />
+          ) : (
+            <ProductCart items={items} key={index} theme={theme} />
+          );
+        })}
       </div>
     </div>
   );

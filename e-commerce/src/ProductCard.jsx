@@ -2,8 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { addCart } from './utility/store/CartSlice';
 import {useDispatch} from "react-redux"
-function Card({ items, theme }) {
-    const { thumbnail, title, price, rating, brand, category, id } = items;
+function Card({ items = {}, theme }) {
+    const { thumbnail, title, price, rating, brand, category, id } = items || {};
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
@@ -44,3 +44,5 @@ function Card({ items, theme }) {
 }
 
 export default Card
+
+
