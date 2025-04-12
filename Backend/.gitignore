@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# dotenv environment variables
+.env
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Build / Dist
+dist/
+build/
+
+# Coverage
+coverage/
+
+# MongoDB data dump (if used)
+dump/
+
+# Temporary files
+*.tmp
+*.swp
