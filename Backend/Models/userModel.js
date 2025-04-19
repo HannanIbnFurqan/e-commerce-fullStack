@@ -1,48 +1,52 @@
-import mongoose, { Types } from "mongoose";
-import jwt from 'jsonwebtoken'
-const {model, Schema} = mongoose
+import mongoose from "mongoose";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'; //  import bcrypt properly
+
+const { model, Schema } = mongoose;
 
 const Address = new Schema({
-    houseNumber: {type: Number},
-    city: {type: String},
-    country: {type: String}
-})
+  houseNumber: { type: Number },
+  city: { type: String },
+  country: { type: String }
+});
 
 const userSchema = new Schema({
-    userName: {type: String, required: true},
-    email: {type: String, required: true, unique: true, min: [6, "Min 6 length"]},
-    password: {type: String, required: true, unique: true},
-    phoneNumber: {type: Number, min: [10], max: [12]},
-    address: {type: [Address], default: []}
+  userName: { type: String, required: true },
+  email: { type: String, required: true, unique: true, minlength: [6, "Min 6 length"] },
+  password: { type: String, required: true }, 
+  phoneNumber: { type: Number },
+  address: { type: [Address], default: [] }
+});
 
-})
+userSchema.pre('save', async function (next) {
+  const user = this;
+  if (!user.isModified("password")) return next(); //  fix logic (you want to hash only if it's modified)
 
+  try {
+    const salt = await bcrypt.genSalt(10); //  fixed typo (gentSalt -> genSalt)
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+    user.password = hashedPassword;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
-userSchema.pre('save', async function(next){
-    let user = this
-    if(this.isModified("password")) return next();
+// Compare password
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password); // ✅ correct method
+};
 
-    try{
+// JWT token generator
+userSchema.methods.generateToken = function () {
+  const token = jwt.sign(
+    { id: this._id, email: this.email }, // ✅ fixed `this_` to `this`
+    process.env.PRIVATE_KEY,
+    { expiresIn: '7d' } // optional: add expiry
+  );
+  return token;
+};
 
-        const salt = await bcrypt.gentSalt(10);
-        let hashedPassword = await bcrypt.hash(user.password, salt)
-        user.password = hashedPassword
-        next();
+const User = model('User', userSchema);
 
-    }catch(error){
-        next(error);
-    }
-})
-
-userSchema.methods.comparePassword = async function(password){
-    return await bcrypt.comparePassword(password, this.password)
-}
-
-userSchema.methods.generateToken = function(){
-    const token = jwt.sign({id: this_.id, email: this_.email}, process.env.PRIVATE_KEY)
-    return token;
-}
-
-let User = model('User', userSchema);
-
-export default User
+export default User;
