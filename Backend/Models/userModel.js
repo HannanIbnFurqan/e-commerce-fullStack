@@ -34,13 +34,12 @@ userSchema.pre('save', async function (next) {
 
 // Compare password
 userSchema.methods.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password); // ✅ correct method
+  return await bcrypt.compare(password, this.password); 
 };
 
 // JWT token generator
 userSchema.methods.generateToken = function () {
-  const token = jwt.sign(
-    { id: this._id, email: this.email }, // ✅ fixed `this_` to `this`
+  const token = jwt.sign({ id: this._id, email: this.email }, 
     process.env.PRIVATE_KEY,
     { expiresIn: '7d' } // optional: add expiry
   );
