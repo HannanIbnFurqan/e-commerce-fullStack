@@ -15,8 +15,9 @@ const signUp = async (req, res) => {
         }
 
         const newUser = new User(req.body)
-        console.log("newUser", newUser.generateToken);
+
         const userData = await newUser.save()
+        
         const token = newUser.generateToken()
         res.status(200).cookie("token", token, cookieOption).send({ result: true, message: "User Create Successfully", UserData: userData })
 
